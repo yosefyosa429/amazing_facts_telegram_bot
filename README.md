@@ -1,73 +1,55 @@
 
 ```markdown
-# 🚀 AI-Powered Amazing Facts Telegram Bot
+# 🤖 AI-Powered Amazing Facts Bot
 
-An automated, intelligent Node.js userbot that generates fascinating, AI-crafted facts and automatically publishes them to a Telegram channel on a structured schedule.
+An intelligent, AI-driven Telegram userbot that leverages the Google Gemini API to automatically generate and post fascinating facts to a Telegram channel on a scheduled basis.
 
 ---
 
-## 📁 Project Structure
+## 📦 Installation
 
-```text
-AMAZING-FACTS-BOT/
-├── .env                  # Environment variables (API keys, Telegram credentials)
-├── .gitignore            # Git exclusion rules (node_modules, session, env)
-├── database.js           # Database handler & storage configuration
-├── facts.db.json         # Local database for tracking generated/posted facts
-├── gemini.js             # Google Generative AI integration for fact generation
-├── index.js              # Main application entry point & Telegram client setup
-├── package.json          # Project metadata, scripts, and dependencies
-├── scheduler.js          # Cron job scheduler for automated posting
-├── session.txt           # Persistent GramJS session string (auto-generated)
-└── topics.js             # Topic pool and categories for the AI generator
-
-```
-## 🛠️ Tech Stack & Dependencies
- * **Runtime:** Node.js (ES Modules / type: "module")
- * **Telegram MTProto Client:** telegram (GramJS)
- * **AI Generation:** @google/generative-ai (Gemini API)
- * **Automation:** node-cron
- * **Configuration:** dotenv
- * **Database:** sql.js (with local JSON state backup support)
-## ⚙️ Prerequisites
-Before running the bot, ensure you have:
- * **Node.js** (v16 or higher) installed.
- * A Telegram API API_ID and API_HASH from my.telegram.org.
- * A Google Gemini API Key from Google AI Studio.
-## 📦 Installation & Setup
- 1. **Clone or open the project folder** in your terminal (Termux or PC).
- 2. **Install dependencies:**
-   ```bash
-   npm install
-   
-   ```
- 3. **Create and configure your .env file** in the root directory:
-   ```env
-   API_ID=your_telegram_api_id
-   API_HASH=your_telegram_api_hash
-   GEMINI_API_KEY=your_google_gemini_api_key
-   CHANNEL=your_channel_username_or_id
-   
-   ```
-## 🏃 Usage
-Start the application using the npm start script:
 ```bash
-npm start
+npm install --ignore-scripts
 
 ```
- * **First-Time Authentication:** The bot will prompt you via the terminal for your phone number, Telegram login code (OTP), and 2-Step Verification (2SV) password if enabled. Once verified, it will securely save your session string into session.txt.
- * **Subsequent Runs:** The bot will automatically load the session from session.txt, connect to Telegram, and initialize the background scheduler without re-authenticating.
-## 🔒 Security & Best Practices
- * **Never** commit your .env, session.txt, or database credentials to public repositories.
- * Ensure your .gitignore file includes:
-   ```text
-   node_modules/
-   .env
-   session.txt
+## ⚙️ Setup Configuration
+ 1. **Create your environment configuration file:**
+   ```bash
+   cp .env.example .env
    
    ```
-## 📄 License
-This project is open-source and available under the MIT License.
+ 2. **Fill in your credentials inside the .env file:**
+   * API_ID & API_HASH → Obtain from my.telegram.org
+   * GEMINI_API_KEY → Obtain from Google AI Studio
+   * CHANNEL → Your target channel username or ID (e.g., @yourchannel)
+## 🚀 Running the Bot
+Start the application using Node.js:
+```bash
+node index.js
+
+```
+ * **First Run:** The bot will prompt you for your phone number, Telegram login code (OTP), and 2SV password if enabled. Once authenticated, a session.txt file is automatically generated.
+ * **Subsequent Runs:** The bot loads the session directly and starts up immediately without asking for credentials again.
+## 📁 File Structure & Architecture
+| File | Purpose |
+|---|---|
+| index.js | Application entry point and Telegram session management |
+| scheduler.js | Cron job manager for automated scheduled posting |
+| gemini.js | Google Generative AI integration for content generation |
+| database.js | Duplicate checker and statistics tracking |
+| topics.js | Topic pool management (rotates across 8 categories) |
+## 📊 Covered Topics (Rotated Automatically)
+The bot dynamically generates content across diverse categories to keep your channel engaging:
+ * 🔬 Science
+ * 🏛️ History
+ * 🌍 Nature
+ * 💻 Technology
+ * 🚀 Space
+ * 🧬 Human Body
+ * 🇪🇹 Ethiopia
+ * 🔢 Mathematics
+## 🔒 Security Best Practices
+ * Never commit your .env or session.txt files to public repositories. Ensure they are properly listed in your .gitignore.
 ```
 
 ```
